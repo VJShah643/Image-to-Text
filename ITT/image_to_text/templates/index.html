@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/copy-to-clipboard.js' %}"></script>
+    <title>Image to Text Converter</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Image to Text</h1>
+    <form action="{% url 'index' %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="image">Choose an image:</label>
+        <input type="file" class="form-control-file" id="image" name="image">
+      </div>
+      <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+  {% if text %}
+    <h2>Extracted Text:</h2>
+    <pre id="converted-text">{{ text }}</pre>
+    <button onclick="copyToClipboard()">Copy to clipboard</button>
+  {% endif %}
+  </div>
+</body>
+</html>
